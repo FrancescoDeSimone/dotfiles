@@ -1,0 +1,163 @@
+export EDITOR='nvim'
+
+# FFF conf
+export FFF_TRASH=/tmp/trash
+
+# npm path 
+export PATH=$HOME/app/.npm-global/bin:$PATH
+
+#emacs mode
+bindkey -e
+
+#TUIR
+export TUIR_EDITOR="vim"
+export TUIR_BROWSER="mpv"
+
+# alias
+alias dive="docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
+alias dd="dd status=progress"
+alias drop="dragon-drag-and-drop -t"
+alias drag="dragon-drag-and-drop"
+alias v="nvim"
+alias vi="nvim"
+alias vim="nvim"
+alias vimdiff="nvim -d"
+alias sv="nvim -u ~/.config/.SpaceVim/vimrc"
+alias svi="nvim -u ~/.config/.SpaceVim/vimrc"
+alias svim="nvim -u ~/.config/.SpaceVim/vimrc"
+alias snvim="nvim -u ~/.config/.SpaceVim/vimrc"
+alias svimdiff="nvim -d -u ~/.config/.SpaceVim/vimrc"
+alias tb="nc termbin.com 9999"
+alias aringa="| curl -LF \"aringa=<-\" --post301 arin.ga"
+alias getclip="xclip -selection c -o"
+alias setclip="xclip -selection c"
+alias cal="cal -3" 
+alias make="make -j$(nproc)" 
+alias ls="ls -F --color" 
+alias ll="ls -F -lh" 
+alias la="ls -F -lha" 
+# alias cp="rsync -ahvz --progress"
+alias ..='cd ..'
+alias pip install='pip install --user'
+alias syclcc-clang="/opt/hipSYCL/bin/syclcc-clang"
+alias fd="fd -j$(nproc)" 
+alias ssh="TERM=xterm-256color ssh" 
+alias adUpdate="ssh $(whoami)@192.168.1.75 pihole -g"
+alias sbc="ssh $(whoami)@192.168.1.75"
+alias yt="pipe-viewer"
+alias openserver="python -m http.server"
+
+transfer() {
+  curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename $1) | tee /dev/null;
+}
+
+#function cp() {
+#  rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 "$@"
+#} 
+#
+#function mv() {
+#  rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files "$@"
+#}
+
+function x0(){
+  curl -F "file=@$@" https://x0.at/
+}
+
+trim_all() {
+    set -f
+    set -- $*
+    printf '%s\n' "$*"
+    set +f
+}
+
+cheat() {
+  curl cheat.sh/$1
+}
+
+split() {
+    set -f
+
+    old_ifs=$IFS
+
+    IFS=$2
+
+    set -- $1
+
+    printf '%s\n' "$@"
+
+    IFS=$old_ifs
+
+    # Re-enable globbing.
+    set +f
+}
+
+mkcdir (){
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
+detach (){
+  $(nohup $1 &> /dev/null)&
+}
+
+groffpdf(){
+   groff -ms $1 -T pdf $1.pdf
+}
+
+sprung() { 
+  curl -F "sprunge=<-" http://sprunge.us ;
+}
+
+ix.io(){ curl -F 'f:1=<-' ix.io; } 
+
+openn() {
+  if [ "$#" -lt 1 ]; then
+    echo "You must enter 1 or more command line arguments";
+  elif [ "$#" -eq 1 ]; then
+    xdg-open "$1" > /dev/null & disown;
+  else
+    for file in "$@"; do
+      xdg-open "$file" > /dev/null & disown;
+    done
+  fi
+}
+
+app-list(){
+	pacman -Qi | gawk '/^Nome/ { x = $3 }; /^Spazio richiesto/ { sub(/Spazio richiesto  *:/, ""); printf "%12s \t %s\n",$0,x  }' | sort -k2,3nr
+}
+
+#hipsycl
+#export hipSYCL_DIR=/opt/hipSYCL/lib/cmake/
+#export celerity_DIR=~/.celerity
+#export HIPSYCL_PLATFORM=cuda
+#export CMAKE_PREFIX_PATH=/usr/lib/cmake
+#export HIPSYCL_GPU_ARCH=sm_35
+
+#export ANDROID_HOME=$HOME/Android/Sdk
+#export PATH=$PATH:$ANDROID_HOME/emulator
+#export PATH=$PATH:$ANDROID_HOME/tools
+#export PATH=$PATH:$ANDROID_HOME/tools/bin
+#export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export LESSHISTFILE=/dev/null
+
+#PASS
+export PASSWORD_STORE_DIR=$HOME/.config/.password-store
+export PASSWORD_STORE_X_SELECTION=clipboard
+
+#SCRIPT PATH
+export PATH="$HOME/app/bin:$PATH"
+export MANPATH="$HOME/app/man:$MANPATH"
+export LD_LIBRARY_PATH="$HOME/app/lib:$LD_LIBRARY_PATH"
+
+# XDG ENV
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
+export SPACEVIMDIR="$XDG_CONFIG_HOME"/.SpaceVim.d
+
+. /usr/share/LS_COLORS/dircolors.sh

@@ -1,1 +1,1 @@
-/home/desi/.xinitrc
+exec i3
