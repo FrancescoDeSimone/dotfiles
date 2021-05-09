@@ -1,0 +1,4 @@
+#!/bin/sh
+result=$(tuxi -r $(echo ""|dmenu))
+notify-send "$result"
+echo $result | espeak -s 200 -v it --stdout -p 120 | paplay

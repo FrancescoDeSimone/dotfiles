@@ -1,0 +1,13 @@
+[Default Applications]
+x-scheme-handler/tg=userapp-Telegram Desktop-QS8Q00.desktop
+x-scheme-handler/msteams=teams.desktop
+text/html=librewolf.desktop
+x-scheme-handler/http=librewolf.desktop
+x-scheme-handler/https=librewolf.desktop
+x-scheme-handler/about=librewolf.desktop
+x-scheme-handler/unknown=librewolf.desktop
+x-scheme-handler/postman=Postman.desktop
+
+[Added Associations]
+x-scheme-handler/tg=userapp-Telegram Desktop-QS8Q00.desktop;
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;

@@ -1,0 +1,353 @@
+# =======================================================================================
+# ==variable
+# =======================================================================================
+	set $mod Mod4
+	set $term alacritty
+
+# =======================================================================================
+# ==System font
+# =======================================================================================
+	font pango:luxim 8
+
+# =======================================================================================
+# ==reset floating position
+# =======================================================================================
+	floating_modifier $mod
+
+# =======================================================================================
+# run terminal
+# =======================================================================================
+	bindsym $mod+Return exec $term
+
+# =======================================================================================
+# ==kill focused window
+# =======================================================================================
+	bindsym $mod+Shift+q kill
+
+# =======================================================================================
+# ==easy focus
+# =======================================================================================
+	bindsym $mod+Escape exec i3-easyfocus -w | xargs xkill -9 -id
+
+# =======================================================================================
+# ==Start rofi
+# =======================================================================================
+	bindsym $mod+d exec $HOME/app/bin/rofi-launcher
+	bindsym $mod+Shift+d exec rofi -show file-browser -threads 0
+	bindsym $mod+Shift+Control+d exec passmenu 
+
+# =======================================================================================
+# ==change focus
+# =======================================================================================
+	bindsym $mod+Left focus left
+	bindsym $mod+Down focus down
+	bindsym $mod+Up focus up
+	bindsym $mod+Right focus right
+
+# =======================================================================================
+# ==move focused window
+# =======================================================================================
+	bindsym $mod+Shift+Left move left
+	bindsym $mod+Shift+Down move down
+	bindsym $mod+Shift+Up move up
+	bindsym $mod+Shift+Right move right
+
+# =======================================================================================
+# ==split in horizontal orientation
+# =======================================================================================
+	bindsym $mod+h split h
+
+# =======================================================================================
+# ==split in vertical orientation
+# =======================================================================================
+	bindsym $mod+v split v
+
+# =======================================================================================
+# ==enter fullscreen mode for the focused container
+# =======================================================================================
+	bindsym $mod+f fullscreen toggle
+
+# =======================================================================================
+# ==change container layout (stacked, tabbed, toggle split)
+# =======================================================================================
+	bindsym $mod+s layout stacking
+	bindsym $mod+w layout tabbed
+	bindsym $mod+e layout toggle split
+
+# =======================================================================================
+# ==toggle tiling / floating
+# =======================================================================================
+	bindsym $mod+Shift+space floating toggle
+
+# =======================================================================================
+# ==audio control
+# =======================================================================================
+	bindsym XF86AudioRaiseVolume exec pamixer -i 5 
+	bindsym XF86AudioLowerVolume exec pamixer -d 5  
+	bindsym XF86AudioMute exec pamixer -t 
+
+	bindsym --release XF86AudioMute exec pkill -SIGRTMIN+10 i3blocks
+	bindsym --release XF86AudioLowerVolume exec pkill -SIGRTMIN+10 i3blocks
+	bindsym --release XF86AudioRaiseVolume exec pkill -SIGRTMIN+10 i3blocks
+
+# =======================================================================================
+# ==audio control
+# =======================================================================================
+	bindsym XF86AudioPlay exec sh -c "playerctl play-pause && pkill -SIGRTMIN+12 i3blocks"
+	bindsym XF86AudioStop exec sh -c "playerctl stop && pkill -SIGRTMIN+12 i3blocks"
+	bindsym XF86AudioNext exec sh -c "playerctl next && pkill -SIGRTMIN+12 i3blocks"
+	bindsym XF86AudioPrev exec sh -c "playerctl previous && pkill -SIGRTMIN+12 i3blocks"
+
+# =======================================================================================
+# ==Caps Lock signal for i3block
+# =======================================================================================
+	bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+
+# =======================================================================================
+# ==change focus between tiling / floating windows
+# =======================================================================================
+	bindsym $mod+space focus mode_toggle
+
+# =======================================================================================
+# ==focus the parent container
+# =======================================================================================
+	bindsym $mod+a focus parent
+
+# =======================================================================================
+# ==Some variable
+# =======================================================================================
+	set $workspace1 "1"
+	set $workspace2 "2"
+	set $workspace3 "3"
+	set $workspace4 "4"
+	set $workspace5 "5"
+	set $workspace6 "6"
+	set $workspace7 "7"
+	set $workspace8 "8"
+	set $workspace9 "9"
+	set $workspace10 "10"
+# =======================================================================================
+# ==switch to workspace
+# =======================================================================================
+	bindsym $mod+1 workspace $workspace1
+	bindsym $mod+2 workspace $workspace2
+	bindsym $mod+3 workspace $workspace3
+	bindsym $mod+4 workspace $workspace4
+	bindsym $mod+5 workspace $workspace5
+	bindsym $mod+6 workspace $workspace6
+	bindsym $mod+7 workspace $workspace7
+	bindsym $mod+8 workspace $workspace8
+	bindsym $mod+9 workspace $workspace9
+	bindsym $mod+0 workspace $workspace10
+
+# =======================================================================================
+# ==switch between the current and the previously focused one
+# =======================================================================================
+	bindsym $mod+Tab workspace back_and_forth
+	bindsym $mod+Shift+Tab move container to workspace back_and_forth
+
+# =======================================================================================
+# ==Automatically putting workspaces on specific screens
+# =======================================================================================
+	workspace $workspace1 output HDMI-0 
+	workspace $workspace2 output HDMI-0
+	workspace $workspace3 output HDMI-0
+	workspace $workspace4 output HDMI-0
+	workspace $workspace5 output HDMI-0
+	workspace $workspace6 output DVI-D-0
+	workspace $workspace7 output DVI-D-0
+	workspace $workspace8 output DVI-D-0
+	workspace $workspace9 output DVI-D-0
+	workspace $workspace10 output DP-0
+
+# =======================================================================================
+# ==move focused container to workspace
+# =======================================================================================
+	bindsym $mod+Shift+1 move container to workspace $workspace1
+	bindsym $mod+Shift+2 move container to workspace $workspace2
+	bindsym $mod+Shift+3 move container to workspace $workspace3
+	bindsym $mod+Shift+4 move container to workspace $workspace4
+	bindsym $mod+Shift+5 move container to workspace $workspace5
+	bindsym $mod+Shift+6 move container to workspace $workspace6
+	bindsym $mod+Shift+7 move container to workspace $workspace7
+	bindsym $mod+Shift+8 move container to workspace $workspace8
+	bindsym $mod+Shift+9 move container to workspace $workspace9
+	bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# =======================================================================================
+# ==restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# =======================================================================================
+	bindsym $mod+F5 restart
+
+# =======================================================================================
+# ==power menu
+# =======================================================================================
+	bindsym $mod+Shift+p exec "i3-nagbar -t warning -m 'You pressed the Power shortcut. What do you wanna do? You can lose your file m8, watch out!' -b 'Shutdown i3' 'sudo systemctl poweroff' -b 'Reboot i3' 'sudo systemctl reboot' -b 'Suspend i3' 'sudo systemctl suspend' -b 'Logout i3' 'i3-msg exit'"
+
+# =======================================================================================
+# ==shutdown
+# =======================================================================================
+	bindsym $mod+Shift+Control+p exec poweroff
+
+# =======================================================================================
+# ==reboot
+# =======================================================================================
+	bindsym $mod+Shift+Control+r exec reboot 
+
+# =======================================================================================
+# ==Suspend
+# =======================================================================================
+	bindsym $mod+Shift+Control+s exec systemctl suspend 
+
+# =======================================================================================
+# ==resize window (you can also use the mouse for that)
+# =======================================================================================
+	bindsym $mod+Control+Left resize shrink width 10 px or 10 ppt
+	bindsym $mod+Control+Right resize grow width 10 px or 10 ppt
+	bindsym $mod+Control+Down resize shrink height 10 px or 10 ppt
+	bindsym $mod+Control+Up resize grow height 10 px or 10 ppt
+
+# =======================================================================================
+# ==Shortcut
+# =======================================================================================
+# Clipboard
+	bindsym $mod+Alt_L exec CM_LAUNCHER=rofi clipmenu 
+	bindsym $mod+Control+Alt_L exec clipdel -d ".*"
+#Browser
+	bindsym $mod+b exec librewolf 
+#screenshot
+	bindsym Control+Print exec maim ~/image/screen/$(date +%s).png 
+	bindsym $mod+Control+Print exec maim -i $(xdotool getactivewindow) ~/image/screen/$(date +%s).png 
+	bindsym --release $mod+Control+Shift+Print exec maim -s ~/image/screen/$(date +%s).png 
+
+	bindsym Print exec bash -c "maim >(xclip -i -selection clipboard -t image/png)"
+	bindsym $mod+Print exec bash -c "maim -i $(xdotool getactivewindow) >(xclip -i -selection clipboard -t image/png)"
+	bindsym --release $mod+Shift+Print exec --no-startup-id maim -su  | xclip -selection clipboard -t image/png 
+
+#task manager
+	bindsym Control+Shift+Escape exec $term -e htop
+#mont devices
+	bindsym $mod+m exec UDISKIE_DMENU_LAUNCHER="rofi" udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
+
+# Assistent
+	bindsym $mod+p exec assistent
+
+# calculator
+	bindsym $mod+c exec rofi -show calc 
+
+# record the screen
+	bindsym $mod+Shift+r exec obs --startrecording --minimize-to-tray
+
+# =======================================================================================
+# ==lock the screen
+# =======================================================================================
+	bindsym $mod+l exec i3lock-fancy-rapid 5 3
+
+# =======================================================================================
+# ==start in floating
+# =======================================================================================
+	for_window [class="Dukto"] floating enable
+	for_window [title="mpv_float_video_sticky"] sticky enable;
+	for_window [title="mpv_float_video_sticky"] resize set 779 438; 
+	for_window [title="mpv_float_video_sticky"] move position 1142 622; 
+	for_window [class="TelegramDesktop" title="Telegram"] move scratchpad;
+	for_window [class="TelegramDesktop" title="Telegram"] floating enable; 
+	for_window [class="TelegramDesktop" title="Telegram"] sticky enable;
+	for_window [class="TelegramDesktop" title="Telegram"] resize set 800 700; 
+	for_window [class="discord" title="Discord"] move scratchpad;
+	for_window [class="discord" title="Discord"] floating enable; 
+	for_window [class="discord" title="Discord"] sticky enable;
+	for_window [class="discord" title="Discord"] resize set 475 740;  
+	for_window [title="Choose files"] resize set 400 100;
+	for_window [title="Choose files"] move position 750 10;
+
+# =======================================================================================
+# ==scratchpad short
+# =======================================================================================
+	bindsym $mod+t [class="TelegramDesktop" title="Telegram"] scratchpad show
+
+# =======================================================================================
+# ==color define
+# =======================================================================================
+	set $bg-color 	         #000000
+	set $inactive-bg-color   #2f343f
+	set $text-color          #FFFFFF
+	set $inactive-text-color #676E7D
+	set $urgent-bg-color     #E53935
+	set $border-color		 #0016DE
+
+# =======================================================================================
+# ==window colors
+# =======================================================================================
+#	                        border              background         text                 indicator
+	client.focused          $bg-color           $border-color      $text-color          #00ff00
+	client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+	client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+	client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+
+# =======================================================================================
+# ==window border
+# =======================================================================================
+	new_window pixel 3
+	hide_edge_borders smart
+# =======================================================================================
+# ==Screen config
+# =======================================================================================
+mode "screen" {
+        bindsym 1	exec ~/.config/.screenlayout/1monitor.sh	
+        bindsym 2	exec ~/.config/.screenlayout/2monitor.sh	
+        bindsym 3	exec ~/.config/.screenlayout/3monitor.sh	
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+s mode "screen"
+
+# =======================================================================================
+# ==start i3bar
+# =======================================================================================
+	bar
+	{
+		position bottom 
+		output HDMI-0
+		tray_output HDMI-0
+		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+		colors {
+			separator #666666
+			background #000000
+			statusline #dddddd
+			focused_workspace #0088CC #0088CC #ffffff
+			active_workspace #333333 #333333 #ffffff
+			inactive_workspace #333333 #333333 #888888
+			urgent_workspace #2f343a #900000 #ffffff
+		}
+	}
+
+	bar
+	{
+		position bottom 
+		output DVI-D-0
+		tray_output DVI-D-0  
+		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+		colors {
+			separator #666666
+			background #000000
+			statusline #dddddd
+			focused_workspace #0088CC #0088CC #ffffff
+			active_workspace #333333 #333333 #ffffff
+			inactive_workspace #333333 #333333 #888888
+			urgent_workspace #2f343a #900000 #ffffff
+	    }
+	}
+
+# =======================================================================================
+# ==exec application on boot
+# =======================================================================================
+	exec --no-startup-id setxkbmap -layout us -variant intl
+	exec --no-startup-id xrdb -merge $HOME/.config/X11/.Xresources
+	exec --no-startup-id dunst
+	exec --no-startup-id clipmenud
+	exec --no-startup-id telegram-desktop
+	exec --no-startup-id nm-applet
+	exec --no-startup-id discord
+	exec --no-startup-id picom --experimental-backend 

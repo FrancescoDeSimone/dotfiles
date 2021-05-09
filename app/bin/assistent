@@ -1,0 +1,83 @@
+#!/bin/sh
+menu(){
+    printf "1. Get a shorten url\n"
+    printf "2. Download file in ~/dl\n"
+    printf "3. Play videos in mpv\n"
+    printf "4. Play audio in mpv\n"
+    printf "5. Send clipboard text with tgsend script\n"
+    printf "6. This will run any shell command\n"
+    printf "7. Clipboard text to speech with espeak\n"
+    printf "8. Start downloading torrent from magnet\n"
+    printf "9. Start streaming torrent from magnet\n"
+    printf "10. Show tvshow list\n"
+    printf "11. Search on 1337x\n"
+}
+
+spell_failed(){
+    notify-send "Failed to cast spell"
+}
+
+choice=$(menu | rofi -dmenu "Clipboard spells 🪄📋:" -i -l 20 | cut -d. -f1)
+cbtext=$(xclip -o -selection clipboard)
+
+case $choice in
+    1)
+	output=$(curl -s -F"shorten=$cbtext" 0x0.st)
+	if [ "$output" = "Segmentation Fault" ]; then
+	    spell_failed
+	else
+	    echo "$output" | xclip -selection c
+	    notify-send "Shorten Link is in Clipboard"
+	fi
+	break
+	;;
+    2)
+	wget -P ~/dl $cbtext &&
+	    notify-send "Downloading File" ||
+		spell_failed
+	break
+	;;
+    3)
+        $(echo "$cbtext" | mpv --playlist=-)|| spell_failed
+	break
+	;;
+    4)
+	mpv "$cbtext" || spell_failed
+	break
+	;;
+    5)
+	user=$(echo "" | dmenu -p "Enter Username: ")
+	tgsend $user "$cbtext"
+	break
+	;;
+    6)
+	$cbtext || spell_failed
+	break
+	;;
+    7)
+	echo "$cbtext" | espeak -p 120
+	break
+	;;
+    8)
+	notify-send "Haven't implemented this feature yet"
+	break
+	;;
+    9)
+	peerflix ${cbtext} --mpv
+	break
+	;;
+    10)
+	peerflix $(eztv) --mpv
+	break
+	;;
+    11)
+	echo "$(1337x)" | xclip -selection c
+	notify-send "Magnet is in Clipboard"
+	break
+	;;
+    *)
+	result=$(tuxi -r "$choice")
+	notify-send "$result"
+	echo $result | espeak -s 200 -v it --stdout -p 120 | paplay
+	;;
+esac

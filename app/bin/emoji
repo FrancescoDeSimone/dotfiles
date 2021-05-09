@@ -1,0 +1,11 @@
+#!/bin/sh
+# Give dmenu list of all unicode characters to copy.
+# Shows the selected character in dunst if running.
+
+# Must have xclip installed to even show menu.
+
+EMOJI=$(grep -v "#" $HOME/app/emoji.tx | rofi -dmenu)
+c=$(echo "$EMOJI" | sed "s/ .*//")
+echo "$c" | tr -d '\n' | xclip -selection clipboard
+notify-send "'$c' copied to clipboard." 
+

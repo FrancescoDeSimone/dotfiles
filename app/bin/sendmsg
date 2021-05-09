@@ -1,0 +1,32 @@
+#!/usr/bin/python
+import os
+import sys
+import re
+import telebot 
+from telethon.sync import TelegramClient 
+from telethon.tl.types import InputPeerUser, InputPeerChannel 
+from telethon import TelegramClient, sync, events 
+
+receiver = sys.argv[1]
+msg = sys.argv[2]
+
+api_id = os.environ['TG_API_ID']
+api_hash = os.environ['TG_API_HASH']
+phone = os.environ['MY_PHONE_NUMBER']
+#token = 'bot token'
+   
+client = TelegramClient('session', api_id, api_hash) 
+   
+client.connect() 
+  
+if not client.is_user_authorized(): 
+    client.send_code_request(phone) 
+    client.sign_in(phone, input('Enter the code: ')) 
+   
+try: 
+    client.send_message(receiver, msg) 
+
+except Exception as e: 
+    print(e); 
+  
+client.disconnect() 

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+port=1234
+dir="${1:-"."}"
+
+python -m http.server -d $dir $port > /dev/null &
+pid=$!
+/home/desi/app/bin/ngrok http $port
+kill -9 $pid
