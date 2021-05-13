@@ -1,0 +1,12 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/nvme0n1p2
+UUID=c4205329-6c9f-4166-a248-3812e3a45dcc	/         	ext4      	rw,noatime,commit=60,barrier=0	0 1
+
+# /dev/nvme0n1p1
+UUID=8A80-1EFC      	/boot     	vfat      	rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+tmpfs	/home/desi/Downloads	tmpfs rw,nosuid,noatime,nodev,size=16G,mode=1777	0	0
+
