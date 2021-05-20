@@ -31,10 +31,8 @@ const get_from_regex =
         }
         group.push(m)
       }
-    console.log(group)
     return mapper(group)
   }
-
 
 const content_list =
     (url, regex, mapper = (x) => x.flatMap(x => x)) => {
@@ -44,21 +42,20 @@ const content_list =
                    res.setEncoding('utf8')
       let rawData = ""
       res.on('data', chunk => rawData += chunk)
-                   res.on('end', () => resolve(get_from_regex(regex, rawData,mapper)))
+                   res.on('end', () => resolve(get_from_regex(regex, rawData, mapper)))
                  })
             .on('error', err => reject(err))
       })
     }
 
-const check_url = (URL) =>new Promise(( resolve, reject) =>
+const check_url = (URL) => new Promise(( resolve, reject) =>
       request.get("https://"+URL, res => resolve(res.statusCode)))
 
 const make_a_map = (m) => new Map(m.map(e => [e[2],e[1]]))
 
 const main = async () => {
   const URLS = [...new Set(await content_list("https://eztvstatus.com/", /eztv\.\w+/gm))]
-  const res = await Promise.all(URLS.reduce((acc,el) => [...acc,check_url(el)],[]))
-  const URL = URLS[res.findIndex(e => e==200)]
+  const URL = URLS.filter(async (el) =>  await check_url(el) == 200)[0]
   const allShow = await content_list("https://"+URL+"/showlist/",/<a href="(.*?)"\s*class="thread_link"\s*>\s*(.*)\s*<\/a>/gm, make_a_map)
   const show = await rofi([...allShow.keys()])
   if(show){
@@ -69,14 +66,3 @@ const main = async () => {
 }
 
 main()
-
-// content_list(URL + "/showlist/",
-             // /<a href="(.*?)"\s*class="thread_link"\s*>\s*(.*)\s*<\/a>/gm)
-    // .then(shows => rofi(shows.keys(), (err, selection, code) =>
-      // { if(selection)content_list(URL + (shows.get(selection)[1]),
-			// /<a href="(.*?)" class="magnet" title="(.*?)"(?:.*\n.*\n.*\n.*\n.*\n.*?color="green">([0-9]+).*)?/g)
-              // .then(magnets => rofi(
-                // [...magnets.keys()]
-                // .map(el => (magnets.get(el)[3]!=undefined)? el+"| Seeds "+magnets.get(el)[3]:el+"| Seeds -"),
-                // (err, selection, code) => {if(selection)console.log(magnets.get(selection.split("|")[0])[1])}))}
-      // ))
