@@ -52,14 +52,18 @@ const check_url = (URL) => new Promise(( resolve, reject) =>
       request.get("https://"+URL, res => resolve(res.statusCode)))
 
 const make_a_map = (m) => new Map(m.map(e => [e[2],e[1]]))
+const make_torrent_info= (m) => new Map(m.map(e => [e[2]+" | Size: "+e[3]+" | Seeds: "+e[4],e[1]]))
+const REGEX_URLS = /eztv\.\w+/gm
+const REGEX_SHOWS = /<a href="(.*?)"\s*class="thread_link"\s*>\s*(.*)\s*<\/a>/gm
+const REGEX_EPISODES = /<a href="(.*?)" class="magnet" title="(.*?)"(?:.*\n.*\n.*\n.*?>([0-9. KMBG]+).*)?\n.*\n.*?>([0-9]+)/gm
 
 const main = async () => {
-  const URLS = [...new Set(await content_list("https://eztvstatus.com/", /eztv\.\w+/gm))]
+  const URLS = [...new Set(await content_list("https://eztvstatus.com/", REGEX_URLS))]
   const URL = URLS.filter(async (el) =>  await check_url(el) == 200)[0]
-  const allShow = await content_list("https://"+URL+"/showlist/",/<a href="(.*?)"\s*class="thread_link"\s*>\s*(.*)\s*<\/a>/gm, make_a_map)
+  const allShow = await content_list("https://"+URL+"/showlist/",REGEX_SHOWS, make_a_map)
   const show = await rofi([...allShow.keys()])
   if(show){
-    const episodes = await content_list("https://"+URL+"/"+allShow.get(show), /<a href="(.*?)" class="magnet" title="(.*?)"(?:.*\n.*\n.*\n.*\n.*\n.*?color="green">([0-9]+).*)?/g,make_a_map)
+    const episodes = await content_list("https://"+URL+"/"+allShow.get(show), REGEX_EPISODES, make_torrent_info)
     const ep = await rofi([...episodes.keys()])
     if(ep) console.log(episodes.get(ep))
   }
