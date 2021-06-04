@@ -6,14 +6,13 @@ const rofi =
     (data) => {
       return new Promise((res,rej) => {
         let stdout
-        let stderr
         let menu = spawn("rofi", [ "-dmenu", "-fuzy", "-i" ])
         for (let d of data) menu.stdin.write(d + '\n')
         menu.stdin.end()
-        menu.stdout.on('data', data => {stdout = data.toString().trim()})
+        menu.stdout.on('data', data => stdout = data.toString().trim())
         menu.stderr.on('data', console.error)
         menu.on('exit', code => {
-          if (code !== 0 && code !== 10 && (stdout || stderr)) {
+          if (code !== 0 && code !== 10 && (stdout)) {
             console.error('returned with code ' + code)
             rej(code)
           }
@@ -40,11 +39,10 @@ const content_list =
             request.get(url,
                  res => {
                    res.setEncoding('utf8')
-      let rawData = ""
-      res.on('data', chunk => rawData += chunk)
+                   let rawData = ""
+                   res.on('data', chunk => rawData += chunk)
                    res.on('end', () => resolve(get_from_regex(regex, rawData, mapper)))
-                 })
-            .on('error', err => reject(err))
+                 }).on('error', err => reject(err))
       })
     }
 

@@ -1,0 +1,28 @@
+(assoc
+  #:pattern "image/.*"
+  #:program "sxiv %f")
+
+(assoc
+  #:pattern "video/.*"
+  #:program "mpv %f")
+
+(assoc
+  #:pattern "^https?://(www.)?youtube.com/watch\\?.*v="
+  #:program "mpv %f")
+
+(assoc
+  #:pattern "^https?://.*"
+  #:program "qutebrowser %f"
+  #:test "pgrep qutebrowser"
+  #:on-fail "chromium %f")
+
+(assoc
+  #:pattern "^text/.*"
+  #:program "vim %f"
+  #:term "st -e")
+
+(assoc
+  #:pattern "inode/directory"
+  #:program "fff %f"
+  #:term "alacritty -e"
+  #:tmux "tmux split-window -h")

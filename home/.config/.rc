@@ -36,7 +36,7 @@ alias make="make -j$(nproc)"
 alias ls="ls -F --color" 
 alias ll="ls -F -lh" 
 alias la="ls -F -lha" 
-# alias cp="rsync -ahvz --progress"
+alias cp="rsync -ahvz --progress"
 alias ..='cd ..'
 alias pip install='pip install --user'
 alias syclcc-clang="/opt/hipSYCL/bin/syclcc-clang"
@@ -50,14 +50,6 @@ alias openserver="python -m http.server"
 transfer() {
   curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename $1) | tee /dev/null;
 }
-
-#function cp() {
-#  rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 "$@"
-#} 
-#
-#function mv() {
-#  rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files "$@"
-#}
 
 function x0(){
   curl -F "file=@$@" https://x0.at/

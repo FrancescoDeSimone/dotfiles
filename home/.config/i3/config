@@ -214,7 +214,7 @@
 	bindsym $mod+Alt_L exec CM_LAUNCHER=rofi clipmenu 
 	bindsym $mod+Control+Alt_L exec clipdel -d ".*"
 #Browser
-	bindsym $mod+b exec librewolf 
+	bindsym $mod+b exec chromium
 #screenshot
 	bindsym Control+Print exec maim ~/image/screen/$(date +%s).png 
 	bindsym $mod+Control+Print exec maim -i $(xdotool getactivewindow) ~/image/screen/$(date +%s).png 
