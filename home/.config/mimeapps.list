@@ -2033,8 +2033,8 @@ x-scheme-handler/qute=jaro.desktop;
 x-scheme-handler/rtmp=jaro.desktop;
 x-scheme-handler/rtp=jaro.desktop;
 x-scheme-handler/rtsp=jaro.desktop;
-x-scheme-handler/tg=userapp-Telegram Desktop-QS8Q00.desktop
+x-scheme-handler/tg=jaro.desktop;
 
 [Added Associations]
-x-scheme-handler/tg=userapp-Telegram Desktop-QS8Q00.desktop;
-application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+x-scheme-handler/tg=jaro.desktop;
+application/pdf=jaro.desktop;

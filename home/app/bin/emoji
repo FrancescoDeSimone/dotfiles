@@ -4,7 +4,7 @@
 
 # Must have xclip installed to even show menu.
 
-EMOJI=$(grep -v "#" $HOME/app/emoji.tx | rofi -dmenu)
+EMOJI=$(grep -v "#" $HOME/app/emoji.txt | rofi -dmenu)
 c=$(echo "$EMOJI" | sed "s/ .*//")
 echo "$c" | tr -d '\n' | xclip -selection clipboard
 notify-send "'$c' copied to clipboard." 

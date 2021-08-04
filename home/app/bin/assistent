@@ -11,6 +11,7 @@ menu(){
     printf "9. Start streaming torrent from magnet\n"
     printf "10. Show tvshow list\n"
     printf "11. Search on 1337x\n"
+    printf "12. YT video\n"
 }
 
 spell_failed(){
@@ -36,7 +37,7 @@ case $choice in
 		spell_failed
 	;;
     3)
-        $(echo "$cbtext" | mpv --playlist=-)|| spell_failed
+        $(echo "$cbtext" | mpv --playlist=-) --input-ipc-server=/tmp/mpvsocket || spell_failed
 	;;
     4)
 	mpv "$cbtext" || spell_failed
@@ -63,6 +64,10 @@ case $choice in
     11)
 	echo "$(1337x)" | xclip -selection c
 	notify-send "Magnet is in Clipboard"
+	;;
+
+    12)
+	     ytwatch -d "|" /home/desi/git/ytwatch/iscrizioni.json | cut -f 2-4 -d'|'| tail -n 100 | tac | mpv --playlist=-
 	;;
     *)
 	result=$(tuxi -r "$choice")

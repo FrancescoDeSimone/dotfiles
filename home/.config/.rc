@@ -45,6 +45,7 @@ alias ssh="TERM=xterm-256color ssh"
 alias adUpdate="ssh $(whoami)@192.168.1.75 pihole -g"
 alias sbc="ssh $(whoami)@192.168.1.75"
 alias yt="pipe-viewer"
+alias ytdl="youtube-dl"
 alias openserver="python -m http.server"
 
 transfer() {
@@ -83,7 +84,7 @@ split() {
     set +f
 }
 
-mkcdir (){
+mkcd (){
     mkdir -p -- "$1" &&
       cd -P -- "$1"
 }

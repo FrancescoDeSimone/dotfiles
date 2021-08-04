@@ -7,7 +7,11 @@
   #:program "mpv %f")
 
 (assoc
-  #:pattern "^https?://(www.)?youtube.com/watch\\?.*v="
+  #:pattern "userapp-Telegram Desktop-QS8Q00.desktop"
+  #:program "chromium %f")
+
+(assoc
+  #:pattern "^https?://(www.)?youtube.com/(v)|(watch)\\?.*v="
   #:program "mpv %f")
 
 (assoc
@@ -26,3 +30,9 @@
   #:program "fff %f"
   #:term "alacritty -e"
   #:tmux "tmux split-window -h")
+
+
+(assoc
+  #:pattern ".*"
+  #:program (select-alternative-with "dmenu")
+  #:standalone #t)
