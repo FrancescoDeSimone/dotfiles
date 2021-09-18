@@ -33,7 +33,7 @@
 # ==Start rofi
 # =======================================================================================
 	bindsym $mod+d exec $HOME/app/bin/rofi-launcher
-	bindsym $mod+Shift+d exec rofi -show file-browser -threads 0
+	bindsym $mod+Shift+d exec rofi -show filebrowser -threads 0
 	bindsym $mod+Shift+Control+d exec passmenu 
 
 # =======================================================================================
@@ -78,6 +78,8 @@
 # ==toggle tiling / floating
 # =======================================================================================
 	bindsym $mod+Shift+space floating toggle
+	floating_maximum_size 1920 x 1080
+	floating_minimum_size 100 x 100
 
 # =======================================================================================
 # ==audio control
@@ -327,7 +329,7 @@ bindsym $mod+Shift+s mode "screen"
 	{
 		position bottom 
 		output DVI-I-1
-		tray_output DVI-I-1  
+		tray_output HDMI-0
 		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
 		colors {
 			separator #666666

@@ -65,6 +65,7 @@ setopt \
     rm_star_wait \
     share_history \
 	
+unsetopt globdots
 
 autoload -Uz tetriscurses
 

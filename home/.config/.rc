@@ -4,7 +4,7 @@ export EDITOR='nvim'
 export FFF_TRASH=/tmp/trash
 
 # npm path 
-export PATH=$HOME/app/.npm-global/bin:$PATH
+export PATH=$HOME/app/.npm-global/bin/bin:$PATH
 
 #emacs mode
 bindkey -e
@@ -42,8 +42,8 @@ alias pip install='pip install --user'
 alias syclcc-clang="/opt/hipSYCL/bin/syclcc-clang"
 alias fd="fd -j$(nproc)" 
 alias ssh="TERM=xterm-256color ssh" 
-alias adUpdate="ssh $(whoami)@192.168.1.75 pihole -g"
-alias sbc="ssh $(whoami)@192.168.1.75"
+alias adUpdate="ssh root@pi.hole pihole -g"
+alias sbc="alacritty -e sh -c 'TERM=xterm-256color ssh root@pi.hole'"
 alias yt="pipe-viewer"
 alias ytdl="youtube-dl"
 alias openserver="python -m http.server"

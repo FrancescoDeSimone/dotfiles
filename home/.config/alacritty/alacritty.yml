@@ -52,12 +52,6 @@ colors:
     cyan:    '0x54ced6'
     white:   '0xffffff'
   indexed_colors: []
-shell:
-  program: /bin/zsh
-  args:
-    - -l
-    - -c
-    - "tmux attach || tmux"
 bell:
   animation: EaseOutExpo
   duration: 0

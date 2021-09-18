@@ -1,2 +1,2 @@
 #!/bin/sh
-rofi -show drun -modi calc,file-browser,window,drun -threads 0 -scroll-method 0 -sidebar-mode -hide-scrollbar true
+rofi -show drun -modi calc,ssh,filebrowser,window,top,drun -threads 0 -scroll-method 0 -sidebar-mode -hide-scrollbar true
