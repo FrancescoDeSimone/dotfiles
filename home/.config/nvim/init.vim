@@ -25,6 +25,7 @@ set norelativenumber
 set ttyfast
 set synmaxcol=80
 set redrawtime=10000
+set splitright
 autocmd BufEnter * :syn sync maxlines=500
 let mapleader=","
 set shiftwidth=4
