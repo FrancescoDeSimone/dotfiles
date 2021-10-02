@@ -12,5 +12,5 @@ UUID=40e2c3a2-b616-4f7d-9848-d3eb549cc530	none	swap	defaults	0	0
 
 UUID=f3b52ee5-3537-4d9a-a7c5-e0756579c134	/home/desi/data	ext4	users,auto,rw,noatime,nodiratime,data=writeback,barrier=0,nobh,errors=remount-ro	0	2
 
-tmpfs	/home/desi/Downloads	tmpfs rw,nosuid,noatime,nodev,size=8G,mode=1777	0	0
+tmpfs	/home/desi/downloads	tmpfs rw,nosuid,noatime,nodev,size=8G,mode=1777	0	0
 
