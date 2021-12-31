@@ -10,25 +10,36 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
+# font:
+#   normal:
+#     family: "FiraCode"
+#     style: "Retina"
+#   bold:
+#     family: "FiraCode"
+#     style: Bold
+#   italic:
+#     family: "Source Code Pro"
+#     style: "Medium Italic"
+#   size: 9.5
+#   offset:
+#     x: 0
+#     y: 0
+#   glyph_offset:
+#     x: 0
+#     y: 0
+#   use_thin_strokes: true
+# draw_bold_text_with_bright_colors: true
 font:
+  size: 9.5
   normal:
-    family: "FiraCode"
-    style: "Retina"
+    family: Fira Code
+    style: Medium
   bold:
-    family: "FiraCode"
+    family: Fira Code
     style: Bold
   italic:
-    family: "Source Code Pro"
-    style: "Medium Italic"
-  size: 9.5
-  offset:
-    x: 0
-    y: 0
-  glyph_offset:
-    x: 0
-    y: 0
-  use_thin_strokes: true
-draw_bold_text_with_bright_colors: true
+    family: Fira Code
+    style: Italic
 colors:
   primary:
     background: '0x000000'
