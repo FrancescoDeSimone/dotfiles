@@ -114,3 +114,6 @@ zle -N down-line-or-beginning-search
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
+source ~/.config/zsh/smartcd.sh
+
+
