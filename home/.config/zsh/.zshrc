@@ -101,6 +101,9 @@ function +vi-git-stash() {
     fi
 }
 
+ATUIN_NOBIND=1 eval "$(atuin init zsh)"
+bindkey '^r' _atuin_search_widget
+
 #search
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 bindkey '^[[A' history-substring-search-up
@@ -115,5 +118,3 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
 source ~/.config/zsh/smartcd.sh
-
-

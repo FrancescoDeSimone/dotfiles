@@ -32,6 +32,8 @@ lvim.keys.normal_mode["<S-l>"] = nil
 lvim.keys.normal_mode["<S-h>"] = nil
 lvim.keys.normal_mode["<C-Left>"] = nil
 lvim.keys.normal_mode["<C-Right>"] = nil
+lvim.keys.normal_mode["<C-+>"] = ":ZoomIn<CR>"
+lvim.keys.normal_mode["<C-->"] = ":ZoomOut<CR>"
 lvim.keys.normal_mode["<F1>"] = ":NvimTreeToggle<cr>"
 lvim.keys.normal_mode["<F2>"] = ":SymbolsOutline<cr>"
 lvim.keys.normal_mode["<C-Left>"] = ":vertical resize +5<cr>"
@@ -223,12 +225,14 @@ lvim.plugins = {
     {'rbong/vim-flog'},
     {'samoshkin/vim-mergetool'},
     {'skywind3000/vim-quickui'},
+    {'drzel/vim-gui-zoom'},
     {'unblevable/quick-scope'},
     {'TamaMcGlinn/flog-menu'},
     {'TamaMcGlinn/flog-forest'},
     {"fabi1cazenave/termopen.vim"},
     {"sharksforarms/vimspector-gen"},
     {"vim-scripts/LargeFile"},
+    {'terryma/vim-multiple-cursors'},
     {"simrat39/rust-tools.nvim",
         config = function()
           require("rust-tools").setup({
@@ -265,8 +269,6 @@ formatters.setup
     {
         {exe = "prettier", filetypes = {"markdown", "javascript", "typescript" } },
         {exe = "rustfmt", filetypes = {"rust" } },
-        { exe = "uncrustify",args = {} },
-        { exe = "uncrustify", args = {} }
 
     }
 

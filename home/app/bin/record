@@ -1,8 +1,8 @@
 #!/bin/bash
 set -xeu
 n=0
-mkdir -p "$HOME/Documents/screenrecord"
-FOLDER="$HOME/Documents/screenrecord"
+mkdir -p "$HOME/video/screenrecord"
+FOLDER="$HOME/video/screenrecord"
 while [[ -f $FOLDER/video$n.mp4 ]]
 do
 	n=$((n+1))

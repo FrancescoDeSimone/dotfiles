@@ -32,9 +32,9 @@
 # =======================================================================================
 # ==Start rofi
 # =======================================================================================
-	bindsym $mod+d exec $HOME/app/bin/rofi-launcher
+	bindsym $mod+d exec $HOME/.local/.app/bin/rofi-launcher
 	bindsym $mod+Shift+d exec rofi -show filebrowser -threads 0
-	bindsym $mod+Shift+Control+d exec passmenu 
+	bindsym $mod+Shift+Control+d exec passmenu
 
 # =======================================================================================
 # ==change focus
@@ -84,9 +84,9 @@
 # =======================================================================================
 # ==audio control
 # =======================================================================================
-	bindsym XF86AudioRaiseVolume exec pamixer -i 5 
-	bindsym XF86AudioLowerVolume exec pamixer -d 5  
-	bindsym XF86AudioMute exec pamixer -t 
+	bindsym XF86AudioRaiseVolume exec pamixer -i 5
+	bindsym XF86AudioLowerVolume exec pamixer -d 5
+	bindsym XF86AudioMute exec pamixer -t
 
 	bindsym --release XF86AudioMute exec pkill -SIGRTMIN+10 i3blocks
 	bindsym --release XF86AudioLowerVolume exec pkill -SIGRTMIN+10 i3blocks
@@ -151,15 +151,15 @@
 # =======================================================================================
 # ==Automatically putting workspaces on specific screens
 # =======================================================================================
-	workspace $workspace1 output HDMI-0 
+	workspace $workspace1 output HDMI-0
 	workspace $workspace2 output HDMI-0
 	workspace $workspace3 output HDMI-0
 	workspace $workspace4 output HDMI-0
 	workspace $workspace5 output HDMI-0
-	workspace $workspace6 output DVI-I-1 
-	workspace $workspace7 output DVI-I-1 
-	workspace $workspace8 output DVI-I-1 
-	workspace $workspace9 output DVI-I-1 
+	workspace $workspace6 output DVI-I-1
+	workspace $workspace7 output DVI-I-1
+	workspace $workspace8 output DVI-I-1
+	workspace $workspace9 output DVI-I-1
 	workspace $workspace10 output DP-0
 
 # =======================================================================================
@@ -194,12 +194,12 @@
 # =======================================================================================
 # ==reboot
 # =======================================================================================
-	bindsym $mod+Shift+Control+r exec reboot 
+	bindsym $mod+Shift+Control+r exec reboot
 
 # =======================================================================================
 # ==Suspend
 # =======================================================================================
-	bindsym $mod+Shift+Control+s exec systemctl suspend 
+	bindsym $mod+Shift+Control+s exec systemctl suspend
 
 # =======================================================================================
 # ==resize window (you can also use the mouse for that)
@@ -213,18 +213,18 @@
 # ==Shortcut
 # =======================================================================================
 # Clipboard
-	bindsym $mod+Alt_L exec CM_LAUNCHER=rofi clipmenu 
+	bindsym $mod+Alt_L exec CM_LAUNCHER=rofi clipmenu
 	bindsym $mod+Control+Alt_L exec clipdel -d ".*"
 #Browser
 	bindsym $mod+b exec chromium
 #screenshot
-	bindsym Control+Print exec maim ~/image/screen/$(date +%s).png 
-	bindsym $mod+Control+Print exec maim -i $(xdotool getactivewindow) ~/image/screen/$(date +%s).png 
-	bindsym --release $mod+Control+Shift+Print exec maim -s ~/image/screen/$(date +%s).png 
+	bindsym Control+Print exec maim ~/image/screen/$(date +%s).png
+	bindsym $mod+Control+Print exec maim -i $(xdotool getactivewindow) ~/image/screen/$(date +%s).png
+	bindsym --release $mod+Control+Shift+Print exec maim -s ~/image/screen/$(date +%s).png
 
 	bindsym Print exec bash -c "maim >(xclip -i -selection clipboard -t image/png)"
 	bindsym $mod+Print exec bash -c "maim -i $(xdotool getactivewindow) >(xclip -i -selection clipboard -t image/png)"
-	bindsym --release $mod+Shift+Print exec --no-startup-id maim -su  | xclip -selection clipboard -t image/png 
+	bindsym --release $mod+Shift+Print exec --no-startup-id maim -su  | xclip -selection clipboard -t image/png
 
 #task manager
 	bindsym Control+Shift+Escape exec $term -e htop
@@ -232,10 +232,10 @@
 	bindsym $mod+m exec UDISKIE_DMENU_LAUNCHER="rofi" udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
 
 # Assistent
-	bindsym $mod+p exec assistent
+	bindsym $mod+p exec $HOME/.local/.app/bin/assistent
 
 # calculator
-	bindsym $mod+c exec rofi -show calc 
+	bindsym $mod+c exec rofi -show calc
 
 # record the screen
 	bindsym $mod+Shift+r exec obs --startrecording --minimize-to-tray
@@ -250,16 +250,16 @@
 # =======================================================================================
 	for_window [class="Dukto"] floating enable
 	for_window [title="mpv_float_video_sticky"] sticky enable;
-	for_window [title="mpv_float_video_sticky"] resize set 779 438; 
-	for_window [title="mpv_float_video_sticky"] move position 1142 622; 
+	for_window [title="mpv_float_video_sticky"] resize set 779 438;
+	for_window [title="mpv_float_video_sticky"] move position 1142 622;
 	for_window [class="TelegramDesktop" title="Telegram"] move scratchpad;
-	for_window [class="TelegramDesktop" title="Telegram"] floating enable; 
+	for_window [class="TelegramDesktop" title="Telegram"] floating enable;
 	for_window [class="TelegramDesktop" title="Telegram"] sticky enable;
-	for_window [class="TelegramDesktop" title="Telegram"] resize set 800 700; 
+	for_window [class="TelegramDesktop" title="Telegram"] resize set 800 700;
 	for_window [class="discord" title="Discord"] move scratchpad;
-	for_window [class="discord" title="Discord"] floating enable; 
+	for_window [class="discord" title="Discord"] floating enable;
 	for_window [class="discord" title="Discord"] sticky enable;
-	for_window [class="discord" title="Discord"] resize set 475 740;  
+	for_window [class="discord" title="Discord"] resize set 475 740;
 	for_window [title="Choose files"] resize set 400 100;
 	for_window [title="Choose files"] move position 750 10;
 
@@ -296,9 +296,9 @@
 # ==Screen config
 # =======================================================================================
 mode "screen" {
-        bindsym 1	exec ~/.config/.screenlayout/1monitor.sh	
-        bindsym 2	exec ~/.config/.screenlayout/2monitor.sh	
-        bindsym 3	exec ~/.config/.screenlayout/3monitor.sh	
+        bindsym 1	exec ~/.config/.screenlayout/1monitor.sh
+        bindsym 2	exec ~/.config/.screenlayout/2monitor.sh
+        bindsym 3	exec ~/.config/.screenlayout/3monitor.sh
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -310,7 +310,7 @@ bindsym $mod+Shift+s mode "screen"
 # =======================================================================================
 	bar
 	{
-		position bottom 
+		position bottom
 		output HDMI-0
 		tray_output HDMI-0
 		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
@@ -327,7 +327,7 @@ bindsym $mod+Shift+s mode "screen"
 
 	bar
 	{
-		position bottom 
+		position bottom
 		output DVI-I-1
 		tray_output HDMI-0
 		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
@@ -352,5 +352,5 @@ bindsym $mod+Shift+s mode "screen"
 	exec --no-startup-id telegram-desktop
 	exec --no-startup-id nm-applet
 	exec --no-startup-id discord
-	exec --no-startup-id picom --experimental-backend 
+	exec --no-startup-id picom --experimental-backend
 	#exec --no-startup-id "i3altlayout"
