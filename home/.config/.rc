@@ -50,42 +50,23 @@ function x0(){
   curl -F "file=@$@" https://x0.at/
 }
 
-trim_all() {
-    set -f
-    set -- $*
-    printf '%s\n' "$*"
-    set +f
+
+fman() {
+    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
+export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
+
 
 cheat() {
   curl cheat.sh/$1
 }
 
-split() {
-    set -f
-
-    old_ifs=$IFS
-
-    IFS=$2
-
-    set -- $1
-
-    printf '%s\n' "$@"
-
-    IFS=$old_ifs
-
-    # Re-enable globbing.
-    set +f
-}
 
 mkcd (){
     mkdir -p -- "$1" &&
       cd -P -- "$1"
 }
 
-detach (){
-  $(nohup $1 &> /dev/null)&
-}
 
 groffpdf(){
    groff -ms $1 -T pdf $1.pdf
@@ -110,21 +91,8 @@ openn() {
 }
 
 app-list(){
-	pacman -Qi | gawk '/^Nome/ { x = $3 }; /^Spazio richiesto/ { sub(/Spazio richiesto  *:/, ""); printf "%12s \t %s\n",$0,x  }' | sort -k2,3nr
+    pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}'
 }
-
-#hipsycl
-#export hipSYCL_DIR=/opt/hipSYCL/lib/cmake/
-#export celerity_DIR=~/.celerity
-#export HIPSYCL_PLATFORM=cuda
-#export CMAKE_PREFIX_PATH=/usr/lib/cmake
-#export HIPSYCL_GPU_ARCH=sm_35
-
-#export ANDROID_HOME=$HOME/Android/Sdk
-#export PATH=$PATH:$ANDROID_HOME/emulator
-#export PATH=$PATH:$ANDROID_HOME/tools
-#export PATH=$PATH:$ANDROID_HOME/tools/bin
-#export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export LESSHISTFILE=/dev/null
 

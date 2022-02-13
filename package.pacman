@@ -22,6 +22,7 @@ autoconf
 automake
 awesome-terminal-fonts
 base
+bat
 bc
 bind
 binutils
@@ -45,6 +46,7 @@ espeak
 fakeroot
 fd
 fff
+fzf
 file
 findutils
 flex
