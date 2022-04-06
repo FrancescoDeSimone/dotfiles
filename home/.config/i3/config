@@ -92,9 +92,6 @@
 	bindsym --release XF86AudioLowerVolume exec pkill -SIGRTMIN+10 i3blocks
 	bindsym --release XF86AudioRaiseVolume exec pkill -SIGRTMIN+10 i3blocks
 
-# =======================================================================================
-# ==audio control
-# =======================================================================================
 	bindsym XF86AudioPlay exec sh -c "playerctl play-pause && pkill -SIGRTMIN+12 i3blocks"
 	bindsym XF86AudioStop exec sh -c "playerctl stop && pkill -SIGRTMIN+12 i3blocks"
 	bindsym XF86AudioNext exec sh -c "playerctl next && pkill -SIGRTMIN+12 i3blocks"
@@ -182,11 +179,6 @@
 	bindsym $mod+F5 restart
 
 # =======================================================================================
-# ==power menu
-# =======================================================================================
-	bindsym $mod+Shift+p exec "i3-nagbar -t warning -m 'You pressed the Power shortcut. What do you wanna do? You can lose your file m8, watch out!' -b 'Shutdown i3' 'sudo systemctl poweroff' -b 'Reboot i3' 'sudo systemctl reboot' -b 'Suspend i3' 'sudo systemctl suspend' -b 'Logout i3' 'i3-msg exit'"
-
-# =======================================================================================
 # ==shutdown
 # =======================================================================================
 	bindsym $mod+Shift+Control+p exec poweroff
@@ -237,9 +229,6 @@
 # calculator
 	bindsym $mod+c exec rofi -show calc
 
-# record the screen
-	bindsym $mod+Shift+r exec obs --startrecording --minimize-to-tray
-
 # =======================================================================================
 # ==lock the screen
 # =======================================================================================
@@ -248,18 +237,10 @@
 # =======================================================================================
 # ==start in floating
 # =======================================================================================
-	for_window [class="Dukto"] floating enable
-	for_window [title="mpv_float_video_sticky"] sticky enable;
-	for_window [title="mpv_float_video_sticky"] resize set 779 438;
-	for_window [title="mpv_float_video_sticky"] move position 1142 622;
 	for_window [class="TelegramDesktop" title="Telegram"] move scratchpad;
 	for_window [class="TelegramDesktop" title="Telegram"] floating enable;
 	for_window [class="TelegramDesktop" title="Telegram"] sticky enable;
 	for_window [class="TelegramDesktop" title="Telegram"] resize set 800 700;
-	for_window [class="discord" title="Discord"] move scratchpad;
-	for_window [class="discord" title="Discord"] floating enable;
-	for_window [class="discord" title="Discord"] sticky enable;
-	for_window [class="discord" title="Discord"] resize set 475 740;
 	for_window [title="Choose files"] resize set 400 100;
 	for_window [title="Choose files"] move position 750 10;
 
@@ -343,6 +324,14 @@ bindsym $mod+Shift+s mode "screen"
 	}
 
 # =======================================================================================
+# == IPC plugin
+# =======================================================================================
+
+    # i3-master-layout
+    exec_always --no-startup-id $XDG_CONFIG_HOME/i3/i3-master-layout/i3-master-layout.py
+    bindsym $mod+r exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-master-layout/i3-swap-master.py
+
+# =======================================================================================
 # ==exec application on boot
 # =======================================================================================
 	exec --no-startup-id setxkbmap -layout us -variant intl
@@ -351,6 +340,4 @@ bindsym $mod+Shift+s mode "screen"
 	exec --no-startup-id clipmenud
 	exec --no-startup-id telegram-desktop
 	exec --no-startup-id nm-applet
-	exec --no-startup-id discord
 	exec --no-startup-id picom --experimental-backend
-	#exec --no-startup-id "i3altlayout"

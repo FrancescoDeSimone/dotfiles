@@ -118,3 +118,4 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
 source ~/.config/zsh/smartcd.sh
+source /home/desi/.config/zsh/zsh-interactive-cd.plugin.zsh
