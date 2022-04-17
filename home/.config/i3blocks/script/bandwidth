@@ -1,109 +1,45 @@
 #!/bin/bash
 
-set -x
+set -e
+human_readable() {
+    local abbrevs=(
+        $((1 << 60)):ZiB
+        $((1 << 50)):EiB
+        $((1 << 40)):TiB
+        $((1 << 30)):GiB
+        $((1 << 20)):MiB
+        $((1 << 10)):KiB
+        $((1)):bytes
+    )
 
-mkdir -p "/tmp/$(whoami)"
-while [[ ${#} -gt 1 ]]; do
-    key="$1"
-    case "$key" in
-        -i|--inlabel)
-            INLABEL="$2"
-            shift;;
-        -o|--outlabel)
-            OUTLABEL="$2"
-            shift;;
-    esac
-    shift
-done
+    local bytes="${1}"
+    local precision="${2}"
 
-[[ -z "$INLABEL" ]] && INLABEL="IN "
-[[ -z "$OUTLABEL" ]] && OUTLABEL="OUT "
-
-# Use the provided interface, otherwise the device used for the default route.
-if [[ -z $INTERFACE ]] && [[ -n $BLOCK_INSTANCE ]]; then
-  INTERFACE=$BLOCK_INSTANCE
-elif [[ -z $INTERFACE ]]; then
-  INTERFACE=$(ip route | awk '/^default/ { print $5 ; exit }')
-fi
-
-# Exit if there is no default route
-[[ -z "$INTERFACE" ]] && exit
-
-# Issue #36 compliant.
-if ! [ -e "/sys/class/net/${INTERFACE}/operstate" ] || \
-    (! [ "$TREAT_UNKNOWN_AS_UP" = "1" ] &&
-    ! [ "`cat /sys/class/net/${INTERFACE}/operstate`" = "up" ])
-then
-    echo "$INTERFACE down"
-    echo "$INTERFACE down"
-    echo "#FF0000"
-    exit 0
-fi
-
-# path to store the old results in
-path="/tmp/$(basename "$0")-${INTERFACE}"
-
-# grabbing data for each adapter.
-read rx < "/sys/class/net/${INTERFACE}/statistics/rx_bytes"
-read tx < "/sys/class/net/${INTERFACE}/statistics/tx_bytes"
-
-# get time
-time=$(date +%s)
-
-# write current data if file does not exist. Do not exit, this will cause
-# problems if this file is sourced instead of executed as another process.
-if ! [[ -f "${path}" ]]; then
-  echo "${time} ${rx} ${tx}" > "${path}"
-  chmod 0666 "${path}"
-fi
+    if [[ "${bytes}" == "1" ]]; then
+        echo "1 byte"
+    else
+        for item in "${abbrevs[@]}"; do
+            local factor="${item%:*}"
+            local abbrev="${item#*:}"
+            if [[ "${bytes}" -ge "${factor}" ]]; then
+                local size="$(bc -l <<< "${bytes} / ${factor}")"
+                LC_NUMERIC="en_US.UTF-8" printf "%.*f %s\n" "${precision}" "${size}" "${abbrev}"
+                break
+            fi
+        done
+    fi
+}
 
 
-# read previous state and update data storage
-read old < "${path}"
-echo "${time} ${rx} ${tx}" > "${path}"
+RX=0
+TX=0
+INTERFACE=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+' | cut -f1 -d ' ')
+RX=$(ip -s link show $INTERFACE | grep -A 1 RX | tail -n1 | awk '{print $1}')
+TX=$(ip -s link show $INTERFACE | grep -A 1 TX | tail -n1 | awk '{print $1}')
+sleep 1
+RX=$(( $(ip -s link show $INTERFACE | grep -A 1 RX | tail -n1 | awk '{print $1}') - $RX ))
+TX=$(( $(ip -s link show $INTERFACE | grep -A 1 TX | tail -n1 | awk '{print $1}') - $TX ))
+DOWN=$(human_readable ${RX})
+UP=$(human_readable ${TX})
 
-# parse old data and calc time passed
-old=(${old//;/ })
-time_diff=$(( $time - ${old[0]} ))
-
-# sanity check: has a positive amount of time passed
-if ! [[ "${time_diff}" -gt 0 ]]; then
-	cat /tmp/$(whoami)/tmp_net
-	exit
-fi
-
-# calc bytes transferred, and their rate in byte/s
-rx_diff=$(( $rx - ${old[1]} ))
-tx_diff=$(( $tx - ${old[2]} ))
-rx_rate=$(( $rx_diff / $time_diff ))
-tx_rate=$(( $tx_diff / $time_diff ))
-
-# shift by 10 bytes to get KiB/s. If the value is larger than
-# 1024^2 = 1048576, then display MiB/s instead
-
-# incoming
-echo -n "$INLABEL"
-echo -n "$INLABEL" > /tmp/$(whoami)/tmp_net
-rx_kib=$(( $rx_rate >> 10 ))
-if hash bc 2>/dev/null && [[ "$rx_rate" -gt 1048576 ]]; then
-  printf '%sM' "`echo "scale=1; $rx_kib / 1024" | bc`" >> /tmp/$(whoami)/tmp_net
-  printf '%sM' "`echo "scale=1; $rx_kib / 1024" | bc`"
-else
-  echo -n "${rx_kib}K"
-  echo -n "${rx_kib}K" >> /tmp/$(whoami)/tmp_net
-fi
-
-echo -n " "
-printf " " >> /tmp/$(whoami)/tmp_net
-
-# outgoing
-echo -n "$OUTLABEL"
-printf "$OUTLABEL" >> /tmp/$(whoami)/tmp_net
-tx_kib=$(( $tx_rate >> 10 ))
-if hash bc 2>/dev/null && [[ "$tx_rate" -gt 1048576 ]]; then
-  printf '%sM\n' "`echo "scale=1; $tx_kib / 1024" | bc`"
-  printf '%sM\n' "`echo "scale=1; $tx_kib / 1024" | bc`" >> /tmp/$(whoami)/tmp_net
-else
-  echo "${tx_kib}K"
-  echo "${tx_kib}K" >> /tmp/$(whoami)/tmp_net
-fi
+echo "IN ${DOWN:-0} OUT ${UP:-0}" 
