@@ -181,17 +181,17 @@
 # =======================================================================================
 # ==shutdown
 # =======================================================================================
-	bindsym $mod+Shift+Control+p exec poweroff
 
-# =======================================================================================
-# ==reboot
-# =======================================================================================
-	bindsym $mod+Shift+Control+r exec reboot
+    set $mode_launcher [p]oweroff | [r]eboot | [s]uspend
+    mode "$mode_launcher" {
+            bindsym p   exec poweroff
+            bindsym r	exec reboot
+            bindsym s   exec systemctl suspend
+            bindsym Return mode "default"
+            bindsym Escape mode "default"
+    }
 
-# =======================================================================================
-# ==Suspend
-# =======================================================================================
-	bindsym $mod+Shift+Control+s exec systemctl suspend
+    bindsym $mod+Shift+Control+p mode "$mode_launcher"
 
 # =======================================================================================
 # ==resize window (you can also use the mouse for that)
