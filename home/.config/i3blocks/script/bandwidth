@@ -9,7 +9,7 @@ human_readable() {
         $((1 << 30)):GiB
         $((1 << 20)):MiB
         $((1 << 10)):KiB
-        $((1)):bytes
+        $((1)):'B  '
     )
 
     local bytes="${1}"
@@ -33,13 +33,13 @@ human_readable() {
 
 RX=0
 TX=0
-INTERFACE=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+' | cut -f1 -d ' ')
+INTERFACE=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)[^\s]+' | cut -f1 -d ' ')
 RX=$(ip -s link show $INTERFACE | grep -A 1 RX | tail -n1 | awk '{print $1}')
 TX=$(ip -s link show $INTERFACE | grep -A 1 TX | tail -n1 | awk '{print $1}')
 sleep 1
-RX=$(( $(ip -s link show $INTERFACE | grep -A 1 RX | tail -n1 | awk '{print $1}') - $RX ))
-TX=$(( $(ip -s link show $INTERFACE | grep -A 1 TX | tail -n1 | awk '{print $1}') - $TX ))
-DOWN=$(human_readable ${RX})
-UP=$(human_readable ${TX})
+RX=$(( $(ip -s link show $INTERFACE | grep -A 1 RX | tail -n1 | awk '{print $1}') - ${RX} ))
+TX=$(( $(ip -s link show $INTERFACE | grep -A 1 TX | tail -n1 | awk '{print $1}') - ${TX} ))
+DOWN=$(human_readable ${RX} 2)
+UP=$(human_readable ${TX} 2)
 
-echo "IN ${DOWN:-0} OUT ${UP:-0}" 
+echo "IN ${DOWN:-00.00 B  } OUT ${UP:-00.00 B  }"
