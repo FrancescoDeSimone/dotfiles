@@ -1,0 +1,85 @@
+#Browser
+	bindsym $mod+b exec brave # /home/fds/Applications/librewolf
+
+#task manager
+	bindsym Control+Shift+Escape exec $term -e htop
+
+# Assistent
+	bindsym $mod+p exec $HOME/Applications/assistent
+
+# =======================================================================================
+# ==shutdown menu
+# =======================================================================================
+
+    set $mode_power [p]oweroff | [r]eboot | [s]uspend
+    mode "$mode_power" {
+            bindsym p	exec poweroff
+            bindsym r	exec reboot
+            bindsym s	exec systemctl suspend
+            bindsym Return mode "default"
+            bindsym Escape mode "default"
+    }
+
+    bindsym $mod+Shift+Control+p mode "$mode_power"
+
+# =======================================================================================
+# ==focus the parent container
+# =======================================================================================
+	bindsym $mod+a focus parent
+
+# =======================================================================================
+# ==enter fullscreen mode for the focused container
+# =======================================================================================
+	bindsym $mod+f fullscreen toggle
+
+# =======================================================================================
+# ==password store
+# =======================================================================================
+	bindsym $mod+Shift+Control+d exec PASSWORD_STORE_DIR=/home/fds/.config/.password-store passmenu
+
+# =======================================================================================
+# ==change focus
+# =======================================================================================
+	bindsym $mod+Left focus left
+	bindsym $mod+Down focus down
+	bindsym $mod+Up focus up
+	bindsym $mod+Right focus right
+
+# =======================================================================================
+# ==move focused window
+# =======================================================================================
+	bindsym $mod+Shift+Left move left
+	bindsym $mod+Shift+Down move down
+	bindsym $mod+Shift+Up move up
+	bindsym $mod+Shift+Right move right
+
+# =======================================================================================
+# ==split in horizontal orientation
+# =======================================================================================
+	bindsym $mod+h split h
+
+# =======================================================================================
+# ==split in vertical orientation
+# =======================================================================================
+	bindsym $mod+v split v
+
+# =======================================================================================
+# ==change focus between tiling / floating windows
+# =======================================================================================
+	bindsym $mod+space focus mode_toggle
+
+# =======================================================================================
+# ==kill focused window
+# =======================================================================================
+	bindsym $mod+Shift+q kill
+
+# =======================================================================================
+# run terminal
+# =======================================================================================
+	bindsym $mod+Return exec $term
+
+# =======================================================================================
+# ==reset floating position
+# =======================================================================================
+	floating_modifier $mod
+

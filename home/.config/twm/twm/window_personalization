@@ -1,0 +1,64 @@
+
+# =======================================================================================
+# ==switch to workspace
+# =======================================================================================
+	bindsym $mod+1 workspace $workspace1
+	bindsym $mod+2 workspace $workspace2
+	bindsym $mod+3 workspace $workspace3
+	bindsym $mod+4 workspace $workspace4
+	bindsym $mod+5 workspace $workspace5
+	bindsym $mod+6 workspace $workspace6
+	bindsym $mod+7 workspace $workspace7
+	bindsym $mod+8 workspace $workspace8
+	bindsym $mod+9 workspace $workspace9
+	bindsym $mod+0 workspace $workspace10
+
+# =======================================================================================
+# ==resize window (you can also use the mouse for that)
+# =======================================================================================
+	bindsym $mod+Control+Left resize shrink width 10 px or 10 ppt
+	bindsym $mod+Control+Right resize grow width 10 px or 10 ppt
+	bindsym $mod+Control+Down resize shrink height 10 px or 10 ppt
+	bindsym $mod+Control+Up resize grow height 10 px or 10 ppt
+
+
+# =======================================================================================
+# ==start in floating
+# =======================================================================================
+	for_window [title="Choose files"] resize set 400 100;
+	for_window [title="Choose files"] move position 750 10;
+  assign [class="Mattermost"] $workspace10
+
+# =======================================================================================
+# ==move focused container to workspace
+# =======================================================================================
+	bindsym $mod+Shift+1 move container to workspace $workspace1
+	bindsym $mod+Shift+2 move container to workspace $workspace2
+	bindsym $mod+Shift+3 move container to workspace $workspace3
+	bindsym $mod+Shift+4 move container to workspace $workspace4
+	bindsym $mod+Shift+5 move container to workspace $workspace5
+	bindsym $mod+Shift+6 move container to workspace $workspace6
+	bindsym $mod+Shift+7 move container to workspace $workspace7
+	bindsym $mod+Shift+8 move container to workspace $workspace8
+	bindsym $mod+Shift+9 move container to workspace $workspace9
+	bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# =======================================================================================
+# ==switch between the current and the previously focused one
+# =======================================================================================
+	bindsym $mod+Tab workspace back_and_forth
+	bindsym $mod+Shift+Tab move container to workspace back_and_forth
+
+# =======================================================================================
+# ==toggle tiling / floating
+# =======================================================================================
+	bindsym $mod+Shift+space floating toggle
+	floating_maximum_size 1920 x 1080
+	floating_minimum_size 100 x 100
+
+# =======================================================================================
+# ==change container layout (stacked, tabbed, toggle split)
+# =======================================================================================
+	bindsym $mod+s layout stacking
+	bindsym $mod+w layout tabbed
+	bindsym $mod+e layout toggle split

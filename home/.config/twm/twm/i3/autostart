@@ -1,0 +1,6 @@
+# =======================================================================================
+# ==exec application on boot
+# =======================================================================================
+  exec --no-startup-id xrdb -merge $HOME/.config/X11/.Xresources
+  exec --no-startup-id clipmenud
+  exec --no-startup-id picom --experimental-backend
