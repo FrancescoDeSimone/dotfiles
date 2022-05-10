@@ -39,3 +39,8 @@
 # =======================================================================================
 	bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
+	bindsym XF86AudioPlay exec sh -c "playerctl play-pause && pkill -SIGRTMIN+12 i3blocks"
+	bindsym XF86AudioStop exec sh -c "playerctl stop && pkill -SIGRTMIN+12 i3blocks"
+	bindsym XF86AudioNext exec sh -c "playerctl next && pkill -SIGRTMIN+12 i3blocks"
+	bindsym XF86AudioPrev exec sh -c "playerctl previous && pkill -SIGRTMIN+12 i3blocks"
+
