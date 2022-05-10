@@ -20,13 +20,3 @@
 	font pango:luxim 8
 
 include ~/.config/twm/i3/*
-
-include ~/.config/twm/desktop_output
-include ~/.config/twm/audio
-include ~/.config/twm/autostart
-include ~/.config/twm/colors_aspect
-include ~/.config/twm/i3blocks
-include ~/.config/twm/ipc
-include ~/.config/twm/screen_mode
-include ~/.config/twm/shortcut
-include ~/.config/twm/window_personalization
