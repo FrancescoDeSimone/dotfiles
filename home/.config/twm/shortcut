@@ -1,0 +1,114 @@
+# =======================================================================================
+# ==Shortcut
+# =======================================================================================
+# Clipboard
+	bindsym $mod+Alt_L exec CM_LAUNCHER=rofi clipmenu
+	bindsym $mod+Control+Alt_L exec clipdel -d ".*"
+#Browser
+	bindsym $mod+b exec brave # /home/fds/Applications/librewolf
+#screenshot
+	bindsym Control+Print exec maim ~/image/screen/$(date +%s).png
+	bindsym $mod+Control+Print exec maim -i $(xdotool getactivewindow) ~/image/screen/$(date +%s).png
+	bindsym --release $mod+Control+Shift+Print exec maim -s ~/image/screen/$(date +%s).png
+
+	bindsym Print exec bash -c "maim >(xclip -i -selection clipboard -t image/png)"
+	bindsym $mod+Print exec bash -c "maim -i $(xdotool getactivewindow) >(xclip -i -selection clipboard -t image/png)"
+	bindsym --release $mod+Shift+Print exec --no-startup-id maim -su  | xclip -selection clipboard -t image/png
+
+#task manager
+	bindsym Control+Shift+Escape exec $term -e htop
+#mont devices
+	bindsym $mod+m exec UDISKIE_DMENU_LAUNCHER="rofi" udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
+
+# Assistent
+	bindsym $mod+p exec $HOME/Applications/assistent
+
+# calculator
+	bindsym $mod+c exec rofi -show calc
+
+# lock the screen
+	bindsym $mod+l exec i3lock-fancy 5 3
+
+# =======================================================================================
+# ==shutdown menu
+# =======================================================================================
+
+    set $mode_power [p]oweroff | [r]eboot | [s]uspend
+    mode "$mode_power" {
+            bindsym p	exec poweroff
+            bindsym r	exec reboot
+            bindsym s	exec systemctl suspend
+            bindsym Return mode "default"
+            bindsym Escape mode "default"
+    }
+
+    bindsym $mod+Shift+Control+p mode "$mode_power"
+
+# =======================================================================================
+# ==restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# =======================================================================================
+	bindsym $mod+F5 restart
+
+# =======================================================================================
+# ==focus the parent container
+# =======================================================================================
+	bindsym $mod+a focus parent
+
+# =======================================================================================
+# ==enter fullscreen mode for the focused container
+# =======================================================================================
+	bindsym $mod+f fullscreen toggle
+
+# =======================================================================================
+# ==Start rofi
+# =======================================================================================
+	bindsym $mod+d exec $HOME/Applications/rofi-launcher
+	bindsym $mod+Shift+d exec rofi -show filebrowser -threads 0
+	bindsym $mod+Shift+Control+d exec PASSWORD_STORE_DIR=/home/fds/.config/.password-store passmenu
+
+# =======================================================================================
+# ==change focus
+# =======================================================================================
+	bindsym $mod+Left focus left
+	bindsym $mod+Down focus down
+	bindsym $mod+Up focus up
+	bindsym $mod+Right focus right
+
+# =======================================================================================
+# ==move focused window
+# =======================================================================================
+	bindsym $mod+Shift+Left move left
+	bindsym $mod+Shift+Down move down
+	bindsym $mod+Shift+Up move up
+	bindsym $mod+Shift+Right move right
+
+# =======================================================================================
+# ==split in horizontal orientation
+# =======================================================================================
+	bindsym $mod+h split h
+
+# =======================================================================================
+# ==split in vertical orientation
+# =======================================================================================
+	bindsym $mod+v split v
+
+# =======================================================================================
+# ==change focus between tiling / floating windows
+# =======================================================================================
+	bindsym $mod+space focus mode_toggle
+
+# =======================================================================================
+# ==kill focused window
+# =======================================================================================
+	bindsym $mod+Shift+q kill
+
+# =======================================================================================
+# run terminal
+# =======================================================================================
+	bindsym $mod+Return exec $term
+
+# =======================================================================================
+# ==reset floating position
+# =======================================================================================
+	floating_modifier $mod
+

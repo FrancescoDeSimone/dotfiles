@@ -1,0 +1,41 @@
+# =======================================================================================
+# ==start i3bar
+# =======================================================================================
+
+    bar {
+        position bottom
+		output HDMI-0
+		tray_output HDMI-0
+		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+		colors {
+			separator #666666
+			background #000000
+			statusline #dddddd
+			focused_workspace #0088CC #0088CC #ffffff
+			active_workspace #333333 #333333 #ffffff
+			inactive_workspace #333333 #333333 #888888
+			urgent_workspace #2f343a #900000 #ffffff
+		}
+	}
+
+	bar {
+		position bottom
+		output DVI-I-1
+		tray_output HDMI-0
+		status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+		colors {
+			separator #666666
+			background #000000
+			statusline #dddddd
+			focused_workspace #0088CC #0088CC #ffffff
+			active_workspace #333333 #333333 #ffffff
+			inactive_workspace #333333 #333333 #888888
+			urgent_workspace #2f343a #900000 #ffffff
+	    }
+	}
+
+# =======================================================================================
+# ==Caps Lock signal for i3block
+# =======================================================================================
+	bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+

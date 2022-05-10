@@ -1,0 +1,13 @@
+# =======================================================================================
+# ==Screen config
+# =======================================================================================
+mode "screen" {
+        bindsym 1	exec ~/.config/.screenlayout/1monitor.sh
+        bindsym 2	exec ~/.config/.screenlayout/2monitor.sh
+        bindsym 3	exec ~/.config/.screenlayout/3monitor.sh
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+s mode "screen"
+

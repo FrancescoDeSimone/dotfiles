@@ -1,0 +1,13 @@
+# =======================================================================================
+# == IPC plugin
+# =======================================================================================
+
+    # i3-master-layout
+    exec --no-startup-id python3 /home/fds/.config/i3/i3-master-layout/i3-master-layout.py --stack-layout=tabbed -e ws9
+    bindsym $mod+r exec --no-startup-id python3 /home/fds/.config/i3/i3-master-layout/i3-swap-master.py
+
+# =======================================================================================
+# ==easy focus
+# =======================================================================================
+	bindsym $mod+Escape exec i3-easyfocus -w | xargs xkill -9 -id
+

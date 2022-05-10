@@ -1,0 +1,25 @@
+# =======================================================================================
+# ==color define
+# =======================================================================================
+	set $bg-color 	         #000000
+	set $inactive-bg-color   #2f343f
+	set $text-color          #FFFFFF
+	set $inactive-text-color #676E7D
+	set $urgent-bg-color     #E53935
+	set $border-color		 #0016DE
+
+# =======================================================================================
+# ==window colors
+# =======================================================================================
+#	                        border              background         text                 indicator
+	client.focused          $bg-color           $border-color      $text-color          #00ff00
+	client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+	client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+	client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+
+# =======================================================================================
+# ==window border
+# =======================================================================================
+	new_window pixel 3
+	hide_edge_borders smart
+
