@@ -1,0 +1,2 @@
+exec wl-paste -t text --watch clipman store
+exec clipman -d

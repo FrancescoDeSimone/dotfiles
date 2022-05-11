@@ -11,15 +11,15 @@
 # ==shutdown menu
 # =======================================================================================
 
-    set $mode_power [p]oweroff | [r]eboot | [s]uspend
+    set $mode_power [p]oweroff | [r]eboot | [s]uspend | [e]xit
     mode "$mode_power" {
             bindsym p	exec poweroff
             bindsym r	exec reboot
             bindsym s	exec systemctl suspend
+            bindsym e	exec $twm exit
             bindsym Return mode "default"
             bindsym Escape mode "default"
     }
-
     bindsym $mod+Shift+Control+p mode "$mode_power"
 
 # =======================================================================================

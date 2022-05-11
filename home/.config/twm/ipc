@@ -3,8 +3,8 @@
 # =======================================================================================
 
     # i3-master-layout
-    exec --no-startup-id python3 ~/.config/i3/i3-master-layout/i3-master-layout.py --stack-layout=tabbed -e ws9
-    bindsym $mod+r exec --no-startup-id python3 ~/.config/i3/i3-master-layout/i3-swap-master.py
+    exec --no-startup-id python3 ~/git/i3-master-layout/i3-master-layout.py --stack-layout tabbed
+    bindsym $mod+r exec --no-startup-id python3 ~/git/i3-master-layout/i3-swap-master.py
 
 # =======================================================================================
 # ==easy focus

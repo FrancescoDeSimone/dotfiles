@@ -44,3 +44,6 @@
 	bindsym XF86AudioNext exec sh -c "playerctl next && pkill -SIGRTMIN+12 i3blocks"
 	bindsym XF86AudioPrev exec sh -c "playerctl previous && pkill -SIGRTMIN+12 i3blocks"
 
+	bindsym --release XF86AudioMute exec pkill -SIGRTMIN+10 i3blocks
+	bindsym --release XF86AudioLowerVolume exec pkill -SIGRTMIN+10 i3blocks
+	bindsym --release XF86AudioRaiseVolume exec pkill -SIGRTMIN+10 i3blocks
