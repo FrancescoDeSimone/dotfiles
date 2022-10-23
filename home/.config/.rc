@@ -162,5 +162,5 @@ export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
 export SPACEVIMDIR="$XDG_CONFIG_HOME"/.SpaceVim.d
 
 # local/bin
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="~/.local/bin:$PATH"
 

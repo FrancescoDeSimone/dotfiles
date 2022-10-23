@@ -1,7 +1,7 @@
 set $mod Mod4
 set $term foot
 set $twm swaymsg
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show drun | xargs swaymsg exec --
 set $workspace1 "1"
 set $workspace2 "2"
 set $workspace3 "3"

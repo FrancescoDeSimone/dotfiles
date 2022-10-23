@@ -1,5 +1,5 @@
 #Browser
-	bindsym $mod+b exec flatpak run io.gitlab.librewolf-community
+	bindsym $mod+b exec librewolf
 
 #task manager
 	bindsym Control+Shift+Escape exec $term -e htop
