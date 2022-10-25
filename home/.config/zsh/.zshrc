@@ -101,8 +101,6 @@ function +vi-git-stash() {
     fi
 }
 
-ATUIN_NOBIND=1 eval "$(atuin init zsh)"
-bindkey '^r' _atuin_search_widget
 
 #search
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -117,5 +115,3 @@ zle -N down-line-or-beginning-search
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-source ~/.config/zsh/smartcd.sh
-source /home/desi/.config/zsh/zsh-interactive-cd.plugin.zsh
