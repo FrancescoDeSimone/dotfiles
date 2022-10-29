@@ -144,6 +144,13 @@
     "interval": 30,
     "exec": "df -h --output=avail / | tail -1 | tr -d ' '"
   },
+  "custom/pacman": {
+    "format": "{}  ",
+    "interval": "3600",
+    "exec": "checkupdates+aur | wc -l",
+    "on-click": "update-system",
+    "signal": 8
+  },
   "tray": {
     "icon-size": 21,
     "spacing": 10

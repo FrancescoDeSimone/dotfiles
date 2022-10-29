@@ -35,7 +35,7 @@
 # =======================================================================================
 # ==password store
 # =======================================================================================
-	bindsym $mod+Shift+Control+d exec PASSWORD_STORE_DIR=/home/fds/.config/.password-store passmenu
+	bindsym $mod+Shift+Control+d exec PASSWORD_STORE_DIR=~/.config/.password-store passmenu
 
 # =======================================================================================
 # ==change focus

@@ -1,7 +1,7 @@
 set $mod Mod4
 set $term foot
 set $twm swaymsg
-set $menu wofi --show drun | xargs swaymsg exec --
+set $menu wofi -i --show drun | xargs swaymsg exec --
 set $workspace1 "1"
 set $workspace2 "2"
 set $workspace3 "3"
@@ -20,6 +20,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
+exec autotiling-rs
  exec swayidle -w \
           timeout 300 'swaylock -f -c 000000' \
           timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \

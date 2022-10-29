@@ -1,6 +1,6 @@
 bindsym $mod+l exec swaylock -c 000000
 
-bindsym $mod+Alt_L exec clipman pick -t wofi | xargs swaymsg exec --
+bindsym $mod+Alt_L exec clipman pick -t wofi -i | xargs swaymsg exec --
 
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
