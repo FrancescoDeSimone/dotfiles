@@ -1,23 +1,23 @@
 export EDITOR='nvim'
-
-# FFF conf
-export FFF_TRASH=/tmp/trash
-
-# npm path
-export PATH=$HOME/.local/.app/.npm-global/bin/bin:$PATH
-
+export PASSWORD_STORE_DIR=$HOME/.config/.password-store
+export PASSWORD_STORE_X_SELECTION=clipboard
+export PATH="${HOME}/.local/bin:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
+export LESSHISTFILE=/dev/null
+export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
 #emacs mode
 bindkey -e
-
-#TUIR
-export TUIR_EDITOR="vim"
-export TUIR_BROWSER="mpv"
-
 # alias
 alias dive="docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
 alias dd="dd status=progress"
-alias drop="dragon-drag-and-drop -t"
-alias drag="dragon-drag-and-drop"
+alias drop="dragon-drop -t"
+alias drag="dragon-drop"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
@@ -31,36 +31,27 @@ alias make="make -j$(nproc)"
 alias ls="ls -F --color"
 alias ll="ls -F -lh"
 alias la="ls -F -lha"
-alias cp="rsync -ahvz --progress"
-alias ..='cd ..'
 alias pip install='pip install --user'
-alias syclcc-clang="/opt/hipSYCL/bin/syclcc-clang"
 alias fd="fd -j$(nproc)"
 alias ssh="TERM=xterm-256color ssh"
-alias adUpdate="ssh root@pi.hole pihole -g"
-alias sbc="alacritty -e sh -c 'TERM=xterm-256color ssh root@pi.hole'"
-alias ytdl="youtube-dl"
-alias openserver="python -m http.server"
+alias ytdl="yt-dlp"
 
 transfer() {
   curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename $1) | tee /dev/null;
 }
 
-function x0(){
+x0(){
   curl -F "file=@$@" https://x0.at/
 }
-
 
 cheat() {
   curl cheat.sh/$1
 }
 
-
 mkcd (){
     mkdir -p -- "$1" &&
       cd -P -- "$1"
 }
-
 
 groffpdf(){
    groff -ms $1 -T pdf $1.pdf
@@ -99,7 +90,12 @@ fkill() {
 }
 
 fman() {
-    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+    man -k . | \
+    fzf -q "$1" --prompt='man> ' \
+    --preview $'echo {} | tr -d \'()\' | \
+                awk \'{printf "%s ", $2} {print $1}\' | \
+                xargs -r man | col -bx | bat -l man -p --color always' |\
+                tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
 
 app-list(){
@@ -110,56 +106,35 @@ app-list(){
        && dpkg --list | awk 'NR>5 {print $2}' | fzf --multi --preview 'dpkg --status {1}'
 }
 
-function da() {
+da() {
   local cid
   cid=$(docker ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
 
   [ -n "$cid" ] && docker start "$cid" && docker attach "$cid"
 }
 
-function ds() {
+ds() {
   local cid
   cid=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
 
   [ -n "$cid" ] && docker stop "$cid"
 }
 
-function drm() {
+drm() {
   local cid
   cid=$(docker ps -a | sed 1d | fzf -q "$1" | awk '{print $1}')
 
   [ -n "$cid" ] && docker rm "$cid"
 }
 
-function drm() {
+drm() {
   docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r docker rm
 }
 
-function drmi() {
+drmi() {
   docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r docker rmi
 }
 
-function fyay() {
+fyay() {
     yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S
 }
-
-export LESSHISTFILE=/dev/null
-export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
-
-#PASS
-export PASSWORD_STORE_DIR=$HOME/.config/.password-store
-export PASSWORD_STORE_X_SELECTION=clipboard
-
-# XDG ENV
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
-export XSERVERRC="$XDG_CONFIG_HOME"/X11/xserverrc
-export SPACEVIMDIR="$XDG_CONFIG_HOME"/.SpaceVim.d
-
-# local/bin
-export PATH="${HOME}/.local/bin:$PATH"
-

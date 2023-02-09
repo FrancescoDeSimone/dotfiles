@@ -1,22 +1,23 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source ~/.config/.rc
 DEFAULT_USER=`whoami`
 
-#POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv aws)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time time)
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+PLUGINS=( "https://github.com/joshskidmore/zsh-fzf-history-search"
+  "https://github.com/zsh-users/zsh-autosuggestions"
+  "https://github.com/zsh-users/zsh-syntax-highlighting"
+  "https://github.com/zsh-users/zsh-history-substring-search")
+
+__update_plugin(){
+    pushd $1
+    git pull
+    popd
+}
+
+source ~/.config/.rc
+for i in $PLUGINS; do
+    [ -d "/home/${DEFAULT_USER}/git/${i##*/}" ] || git clone ${i} /home/${DEFAULT_USER}/git/${i##*/}
+    ( &>/dev/null __update_plugin /home/${DEFAULT_USER}/git/${i##*/} & )
+    source /home/${DEFAULT_USER}/git/${i##*/}/${i##*/}.zsh
+done
+
 
 #History
 HISTFILE=~/.config/zsh/.zsh_history
@@ -74,7 +75,7 @@ setopt \
     prompt_subst \
     rm_star_wait \
     share_history \
-	
+
 unsetopt globdots
 
 autoload -Uz tetriscurses
@@ -115,3 +116,4 @@ zle -N down-line-or-beginning-search
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
+eval "$(starship init zsh)"
