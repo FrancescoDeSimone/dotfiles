@@ -103,7 +103,11 @@ fman() {
 }
 
 app-list(){
-    pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}'
+    OS_NAME="$(cat /etc/os-release | awk -F= '/^NAME/ {print $2}' | tr -d "\"")"
+    [ "${OS_NAME}" = 'Arch Linux' ] \
+        && pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}'
+    [ "${OS_NAME}" = 'Ubuntu' ] \
+       && dpkg --list | awk 'NR>5 {print $2}' | fzf --multi --preview 'dpkg --status {1}'
 }
 
 function da() {
