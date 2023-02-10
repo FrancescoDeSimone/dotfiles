@@ -24,8 +24,6 @@ alias vim="nvim"
 alias vimdiff="nvim -d"
 alias tb="nc termbin.com 9999"
 alias aringa="| curl -LF \"aringa=<-\" --post301 arin.ga"
-alias getclip="xclip -selection c -o"
-alias setclip="xclip -selection c"
 alias cal="cal -3"
 alias make="make -j$(nproc)"
 alias ls="ls -F --color"
@@ -35,6 +33,18 @@ alias pip install='pip install --user'
 alias fd="fd -j$(nproc)"
 alias ssh="TERM=xterm-256color ssh"
 alias ytdl="yt-dlp"
+
+getclip(){ 
+    [ -n $WAYLAND_DISPLAY ] 
+        && wl-paste 
+        || xclip -selection c -o
+}
+
+setclip(){ 
+    [ -n $WAYLAND_DISPLAY ] 
+        && wl-copy 
+        || xclip -selection c
+}
 
 transfer() {
   curl --progress-bar --upload-file "$1" https://transfer.sh/$(basename $1) | tee /dev/null;
