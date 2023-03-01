@@ -18,6 +18,8 @@ for i in $PLUGINS; do
     source /home/${DEFAULT_USER}/git/${i##*/}/${i##*/}.zsh
 done
 
+ZSH_FZF_HISTORY_SEARCH_FZF_ARGS="+s +m -x -e --height 40%  --height 20%  --layout reverse --info inline"
+[ -n $(command -v starship) ] && eval "$(starship init zsh)"
 
 #History
 HISTFILE=~/.config/zsh/.zsh_history
