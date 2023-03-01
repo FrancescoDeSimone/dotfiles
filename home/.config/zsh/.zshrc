@@ -18,8 +18,6 @@ for i in $PLUGINS; do
     source /home/${DEFAULT_USER}/git/${i##*/}/${i##*/}.zsh
 done
 
-ZSH_FZF_HISTORY_SEARCH_FZF_ARGS="+s +m -x -e --height 40%  --height 20%  --layout reverse --info inline"
-[ -n $(command -v starship) ] && eval "$(starship init zsh)"
 
 #History
 HISTFILE=~/.config/zsh/.zsh_history
@@ -118,4 +116,12 @@ zle -N down-line-or-beginning-search
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-eval "$(starship init zsh)"
+ZSH_FZF_HISTORY_SEARCH_FZF_ARGS="+s +m -x -e --height 40%  --height 20%  --layout reverse --info inline"
+[ ! -z $(command -v starship) ] && eval "$(starship init zsh)"
+[ ! -z $(command -v kubectl) ] && source <(kubectl completion zsh)
+if [ ! -z $(command -v jotter) ];then 
+    __jotter_zsh() { jotter }
+    zle -N __jotter_zsh
+    bindkey '^n' __jotter_zsh
+    echo lol
+fi
